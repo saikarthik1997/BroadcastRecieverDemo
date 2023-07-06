@@ -1,6 +1,7 @@
 package com.sri.broadcastrecieverdemo
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,8 +19,17 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, filter)
         */
 
-        //custom through reciever
-       // registerReceiver(CustomBroadcastReceiver(),IntentFilter("com.sri.broadcastrecieverdemo.ACTION_CUSTOM_BROADCAST"))
+        //custom through context reciever
+        registerReceiver(CustomBroadcastReceiver(),
+            IntentFilter("com.sri.broadcastrecieverdemo.ACTION_CUSTOM_BROADCAST")
+        )
+        Intent().apply {
+          this.action="com.sri.broadcastrecieverdemo.ACTION_CUSTOM_BROADCAST"
+            handler.postDelayed({
+                sendBroadcast(this)
+            }, 2000)
+        }
+
 
         //custom broadcast through manifest
         handler.postDelayed({
